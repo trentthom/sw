@@ -1,0 +1,45 @@
+import React, {Component} from 'react'
+import axios from 'axios'
+
+class Characters extends Component{
+  constructor(props){
+    super(props)
+    this.state = {
+      characters: [],
+      loading: false,
+    }
+  }
+
+  componentDidMount(){
+    const urlMapped = this.props.characters.map(function(char){
+      return axios.get(char)
+      console.log('characters inside componet did mount - expect to see urls',char)
+    })
+
+    Promise.all(urlMapped).then((values) => {
+      const cleanedObjects = values.map(function(d){
+        console.log(d.data)
+        return d.data
+      })
+      console.log('cleanedObjects in promise all expected data:', cleanedObjects)
+      this.setState({characters: cleanedObjects})
+    })
+  }
+
+  render(){
+    console.log('inside characters render function',this.state.characters)
+    const characterNames = this.state.loading ? "...loading" : this.state.characters.map(function(character){
+      return(
+        <div className="characterDiv" key={character.name}>{character.name} | {character.height} | {character.mass} | {character.hair_color}</div>
+      )
+    })
+    return(
+      <>
+        <h1>Characters</h1>
+
+      </>
+    )
+  }
+}
+
+export default Characters
