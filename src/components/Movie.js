@@ -2,45 +2,59 @@ import React, {Component} from 'react'
 import axios from 'axios'
 import Characters from './Characters'
 
+
 class Movie extends Component{
   constructor(props){
     super()
     this.state = {
       title: '',
       newData: '',
+      image: '',
     }
+    this._nameFixer = this._nameFixer.bind(this)
   }
 
   componentDidMount(){
     const movieId = this.props.match.params.movieId
+    let title = '';
     axios.get(`https://swapi.dev/api/films/${movieId}/`).then((response) => {
-      this.setState({title: response.data.title})
+      title = response.data.title
       const charURLS = response.data.characters
       return Promise.all(charURLS.map((u) => {
         return axios.get(u)
           .then((response) => {
             const swNames = response.data
-            console.log('swNames', swNames)
+            // console.log('swNames', swNames)
             return swNames
           })
       }))
     })
     .then(items => this.setState({
-      newData: items
+      newData: items, title
     }))
   }
 
+  _nameFixer(e){
+    const name = e.target.childNodes[0].wholeText
+    const nameFixedname = name.split(' ').join('').toLowerCase()
+    console.log(nameFixedname)
+    this.setState({image: `/${nameFixedname}.jpeg` })
+  }
+  // <img src={process.env.PUBLIC_URL + '/logo.png'} alt="logo" />
+
   render(){
     const text = this.state.newData ? this.state.newData.map(function (k){
-      return <div key={k.name}> {k.name} | {k.height} | {k.mass} </div>
+      return <div key={k.name}> {k.name} </div>
     })
-    : <div>{'loading...'}</div>
-    console.log('from render',this.state.newData)
+    :
+    <div>{'loading...'}</div>
+
     return(
       <div>
         <h1>{this.state.title}</h1>
-        {text}
+        <div className='characterDiv' onClick={this._nameFixer}>{text}</div>
         <Characters characterObjects={this.state.newData}/>
+        <img className='image' src={this.state.image} alt="logo" />
       </div>
     )
   }
