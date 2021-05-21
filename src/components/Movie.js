@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import axios from 'axios'
 import Characters from './Characters'
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css'
 
 
 class Movie extends Component{
@@ -24,7 +26,7 @@ class Movie extends Component{
         return axios.get(u)
           .then((response) => {
             const swNames = response.data
-            // console.log('swNames', swNames)
+            console.log('swNames', swNames)
             return swNames
           })
       }))
@@ -44,7 +46,25 @@ class Movie extends Component{
 
   render(){
     const text = this.state.newData ? this.state.newData.map(function (k){
-      return <div key={k.name}> {k.name} </div>
+      console.log(k)
+      const attributes = []
+
+      return (
+        <Tippy placement='right' content={
+          <ul>
+            <li>{ k.name}</li>
+            <li>{k.birth_year}</li>
+            <li>{k.eye_color}</li>
+            <li>{k.gender }</li>
+            <li>{k.hair_color}</li>
+            <li>{k.height}</li>
+          </ul>
+        }>
+          <div className='namediv'key={k.name}>
+            {k.name}
+           </div>
+       </Tippy>
+      )
     })
     :
     <div>{'loading...'}</div>
@@ -52,9 +72,11 @@ class Movie extends Component{
     return(
       <div>
         <h1>{this.state.title}</h1>
-        <div className='characterDiv' onClick={this._nameFixer}>{text}</div>
+        <img className='image' src={this.state.image} alt="coming soon" />
+        <div className='characterDiv' onClick={this._nameFixer}>
+          {text}
+        </div>
         <Characters characterObjects={this.state.newData}/>
-        <img className='image' src={this.state.image} alt="logo" />
       </div>
     )
   }
