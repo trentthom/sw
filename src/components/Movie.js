@@ -26,7 +26,6 @@ class Movie extends Component{
         return axios.get(u)
           .then((response) => {
             const swNames = response.data
-            console.log('swNames', swNames)
             return swNames
           })
       }))
@@ -46,11 +45,8 @@ class Movie extends Component{
 
   render(){
     const text = this.state.newData ? this.state.newData.map(function (k){
-      console.log(k)
-      const attributes = []
-
       return (
-        <Tippy placement='right' content={
+        <Tippy placement='right' key={k.name} content={
           <ul>
             <li>{ k.name}</li>
             <li>{k.birth_year}</li>
