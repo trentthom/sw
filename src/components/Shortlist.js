@@ -1,10 +1,14 @@
 import React from 'react'
 
-export default () => {
+export default ({favourites, movies}) => {
   return(
-    <p>
-      From the short list component : 
-      click on a movie to make a favourite list
-    </p>
+    <div>
+      <p>
+        Favourite Movies:
+      </p>
+      <div>
+        {favourites}
+      </div>
+    </div>
   )
 }

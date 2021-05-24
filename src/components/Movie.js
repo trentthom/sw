@@ -79,8 +79,3 @@ class Movie extends Component{
 }
 
 export default Movie
-// <Characters characterURLS={this.state.characters}/>
-
-// setTimeout(function(){
-//   console.log('aftertimeout',urlData)
-// },4000)
