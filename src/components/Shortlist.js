@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default ({shortList}) => {
+ const sList = ({shortList}) => {
 
   return(
     <div>
@@ -11,3 +11,5 @@ export default ({shortList}) => {
     </div>
   )
 }
+
+export default sList
