@@ -45,6 +45,7 @@ class Movie extends Component{
   // <img src={process.env.PUBLIC_URL + '/logo.png'} alt="logo" />
 
   render(){
+    console.log(this.state.newData[0])
     const text = this.state.newData ? this.state.newData.map(function (k){
       return (
         <Tippy placement='right' key={k.name} content={

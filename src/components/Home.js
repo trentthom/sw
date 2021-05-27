@@ -11,7 +11,7 @@ class Home extends Component {
     this.state = {
       movies: [],
       filter: '',
-      shortList: [],
+      shortList: {},
     }
     this._changeHandler = this._changeHandler.bind(this)
     this._addFav = this._addFav.bind(this)
@@ -33,28 +33,39 @@ class Home extends Component {
 
 
   _addFav(e){
-    console.log("e.target", e.target)
-    const buttonColor = e.target.classList.toggle('favButtonOff') //true is RED and added to Favourite list
-    // console.log(buttonColor)
+    // console.log("e.target", e.target.name)
+    // const buttonColor = e.target.classList.toggle('favButtonOff') //true is RED and added to Favourite list
+    // // console.log(buttonColor)
 
 
-    let favList = [] //wrap this in a loop and check if x === e.target.name ?!!?!?!?!
-    if(buttonColor){
-      favList = this.state.shortList.concat(e.target.name)
-      console.log(favList)
+    // let favList = [] //wrap this in a loop and check if x === e.target.name ?!!?!?!?!
+    // if(buttonColor){
+    //   favList = this.state.shortList.concat(e.target.name)
+    //   console.log(favList)
+    // } else {
+    //   console.log('false')
+    //   console.log(e.target.name)
+    //
+    //   for(const x of favList){
+    //     console.log('heres x',x)
+    //     // if(x === e.target.name) console.log('match')
+    //   }
+    // }
+    const filmName = e.target.name;
+    if (this.state.shortList[filmName]) {
+      delete this.state.shortList[filmName];
     } else {
-      console.log('false')
-      console.log(e.target.name)
-
-      for(const x of favList){
-        console.log('heres x',x)
-        // if(x === e.target.name) console.log('match')
-      }
+      this.state.shortList[filmName] = true;
     }
 
-    this.setState({shortList: favList}, () => {
+
+
+
+    this.setState({shortList: this.state.shortList }, () => {
       localStorage.setItem('shortList', JSON.stringify(this.state.shortList))
     })
+
+
 
 
 
@@ -69,11 +80,13 @@ class Home extends Component {
     .map((d, index) => {
       return(
         <div className="movieList" key={d.episode_id}>
-          <button className='favButton' name={d.title} onClick={this._addFav}></button>
+          <button className={this.state.shortList[d.title] ? 'favButton' : 'favButtonOff'} name={d.title} onClick={this._addFav}></button>
           <a href={`/movie/${index + 1}`}>{d.title}</a>
         </div>
       )
     })
+
+
     return(
       <div className='twinkling'>
         <div className='container'>

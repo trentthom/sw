@@ -7,7 +7,13 @@ import React from 'react'
     <p>
       Favourite movies:
     </p>
-      {shortList}
+      {Object.keys(shortList).map(function(movieName){
+        return(
+          <p key={movieName}>
+            {movieName}
+          </p>
+        )
+      })}
     </div>
   )
 }
