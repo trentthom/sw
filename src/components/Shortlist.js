@@ -3,17 +3,14 @@ import React from 'react'
  const sList = ({shortList}) => {
 
   return(
-    <div>
-    <p>
-      Favourite movies:
-    </p>
+    <div className='favoutiteArea'>
+      <span className='favTitle'>Favourite Movies:{' '}
       {Object.keys(shortList).map(function(movieName){
         return(
-          <p key={movieName}>
-            {movieName}
-          </p>
+          <span className='shortListSpan' key={movieName}>{movieName}</span>
         )
       })}
+      </span>
     </div>
   )
 }

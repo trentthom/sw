@@ -70,11 +70,16 @@ class Movie extends Component{
     return(
       <div>
         <h1>{this.state.title}</h1>
-        <img className='image' src={this.state.image} alt="coming soon" />
-        <div className='characterDiv' onClick={this._nameFixer}>
-          {text}
+        <div className='charactersContainer'>
+          <div className='characterList'>
+          <img className='starwars' src={process.env.PUBLIC_URL + '/starwars.jpeg'}  alt='star wars logo'/>
+            <img className='image' src={this.state.image} alt="coming soon" />
+            <div className='characterDiv' onClick={this._nameFixer}>
+              {text}
+            </div>
+            <Characters characterObjects={this.state.newData}/>
+          </div>
         </div>
-        <Characters characterObjects={this.state.newData}/>
       </div>
     )
   }

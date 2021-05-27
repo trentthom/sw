@@ -7,17 +7,7 @@ class Characters extends Component{
     }
   }
 
-
-
   render() {
-    // console.log(this.props.characterObjects)
-    // const people = this.props.map.characterObjects(function(c){
-    //   return(
-    //     <div>
-    //       {c.name | c.height}
-    //     </div>
-    //   )
-    // })
     return (
       <div>
 

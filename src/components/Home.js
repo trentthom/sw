@@ -33,44 +33,16 @@ class Home extends Component {
 
 
   _addFav(e){
-    // console.log("e.target", e.target.name)
-    // const buttonColor = e.target.classList.toggle('favButtonOff') //true is RED and added to Favourite list
-    // // console.log(buttonColor)
-
-
-    // let favList = [] //wrap this in a loop and check if x === e.target.name ?!!?!?!?!
-    // if(buttonColor){
-    //   favList = this.state.shortList.concat(e.target.name)
-    //   console.log(favList)
-    // } else {
-    //   console.log('false')
-    //   console.log(e.target.name)
-    //
-    //   for(const x of favList){
-    //     console.log('heres x',x)
-    //     // if(x === e.target.name) console.log('match')
-    //   }
-    // }
     const filmName = e.target.name;
     if (this.state.shortList[filmName]) {
       delete this.state.shortList[filmName];
     } else {
       this.state.shortList[filmName] = true;
     }
-
-
-
-
     this.setState({shortList: this.state.shortList }, () => {
       localStorage.setItem('shortList', JSON.stringify(this.state.shortList))
     })
-
-
-
-
-
   }
-
 
   render(){
     const movies = this.state.movies
@@ -81,21 +53,20 @@ class Home extends Component {
       return(
         <div className="movieList" key={d.episode_id}>
           <button className={this.state.shortList[d.title] ? 'favButton' : 'favButtonOff'} name={d.title} onClick={this._addFav}></button>
-          <a href={`/movie/${index + 1}`}>{d.title}</a>
+          <a className='movieLinks' href={`/movie/${index + 1}`}>{d.title}</a>
         </div>
       )
     })
 
-
     return(
       <div className='twinkling'>
+      <img className='starwars' src={process.env.PUBLIC_URL + '/starwars.jpeg'}  alt='star wars logo'/>
         <div className='container'>
           <h1>Star Wars Search</h1>
-          <img className='starwars' src={process.env.PUBLIC_URL + '/starwars.jpeg'}  alt='star wars logo'/>
           <form>
-          <label>Movie Seach</label>
+          <label>Movie Search</label>
             <input type="text"
-            placeholder='serach for movies here...'
+            placeholder='Search for movies here...'
             value={this.state.filter}
             onChange={this._changeHandler}
           />
@@ -111,32 +82,3 @@ class Home extends Component {
 }
 
 export default Home
-
-// _addFav(e){
-//   // console.log(e.target.classList.value)
-//   const buttonColor = e.target.classList.toggle('favButtonOff') //true is RED and added to Favourite list
-//   // console.log(buttonColor)
-//
-//
-//   const favList = this.state.shortList.concat(e.target.name)
-//   const noDupes = new Set(favList)
-//   const noDupesArray = []
-//   for(const x of noDupes){
-//     if(buttonColor){
-//       noDupesArray.push(x)
-//     } else if(x === e.target.name){
-//       console.log(x === e.target.name)
-//       noDupesArray.splice(x, 1)
-//       console.log(noDupesArray[x])
-//     }
-//
-//
-//
-//   }
-//   this.setState({shortList: noDupesArray}, () => {
-//     localStorage.setItem('shortList', JSON.stringify(this.state.shortList))
-//   })
-//
-//
-//
-// }

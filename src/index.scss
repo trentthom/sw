@@ -1,4 +1,4 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Monoton&family=Open+Sans&family=Source+Sans+Pro:wght@300&display=swap');
 
 body {
   align-content: center;
@@ -7,6 +7,14 @@ body {
   color: white;
   max-width: 960px;
   margin: 0 auto;
+  font-family: arial;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+h1{
+  font-size: 70px;
+  color: rgb(235, 216, 52);
+  font-family: 'Monoton', cursive;
 }
 
 .input{
@@ -51,6 +59,9 @@ body {
 
 .starwars{
   align-items: center;
+  left: 51px;
+  margin-left: 0;
+  position: absolute;
 }
 
 .twinkling{
@@ -62,4 +73,41 @@ body {
 .container {
   max-width: 960px;
   margin: 0 auto;
+}
+.characterList{
+
+}
+
+.favTitle{
+  font-size: 30px;
+}
+.movieLinks{
+  font-size: 30px;
+  text-decoration: none;
+}
+
+.shortListSpan{
+  padding-right:1rem;
+}
+
+.favoutiteArea{
+  height: 5rem;
+  padding-top: 22px;
+
+}
+
+input{
+  width: 960px;
+  height: 30px;
+  font-size: 16px;
+  border-radius: 20px;
+}
+
+label{
+  font-size: 30px;
+}
+
+.charactersContainer{
+  display:grid;
+  grid-template-columns: 1fr 1fr
 }
