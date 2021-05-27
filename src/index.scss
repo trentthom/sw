@@ -1,0 +1,63 @@
+
+
+body {
+  align-content: center;
+  z-index: 0;
+	background: #000 url('https://image.ibb.co/mjnygo/stars.png') repeat top center;
+  color: white;
+}
+
+.input{
+  margin-bottom: 2rem;
+}
+
+.namediv{
+  padding: 10px;
+}
+
+.characterDiv{
+  padding: 1rem
+}
+
+.image{
+  max-width: 100px;
+  max-height: 100px;
+}
+
+.movieList{
+  padding: 10px;
+  color: white;
+}
+
+.favButton {
+  width: 50px;
+  height: 50px;
+  border-radius: 30px;
+  background-image: linear-gradient(to top left, #28b487, #7dd56f);
+  margin-right: 2rem;
+
+}
+
+.favButtonOff {
+  width: 50px;
+  height: 50px;
+  border-radius: 30px;
+  background-image: linear-gradient(to top left, #FF0000, #FF2400);
+  margin-right: 2rem;
+
+}
+
+.starwars{
+  align-items: center;
+}
+
+.twinkling{
+	z-index: 2;
+	background:transparent url('https://image.ibb.co/ir1DE8/twinkling.png') repeat top center;
+	animation: move-twink-back 300s linear infinite;
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+}

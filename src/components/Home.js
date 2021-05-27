@@ -19,7 +19,6 @@ class Home extends Component {
 
   componentDidMount(){
     axios.get(URL).then((response) => {
-      console.log(response)
       this.setState({movies: response.data.results});
     })
     const shortList = localStorage.getItem('shortList')
@@ -32,16 +31,33 @@ class Home extends Component {
     this.setState({filter: e.target.value})
   }
 
+
   _addFav(e){
-    const favList = this.state.shortList.concat(e.target.name)
-    const noDupes = new Set(favList)
-    const noDupesArray = []
-    for(const x of noDupes){
-      noDupesArray.push(x)
+    console.log("e.target", e.target)
+    const buttonColor = e.target.classList.toggle('favButtonOff') //true is RED and added to Favourite list
+    // console.log(buttonColor)
+
+
+    let favList = [] //wrap this in a loop and check if x === e.target.name ?!!?!?!?!
+    if(buttonColor){
+      favList = this.state.shortList.concat(e.target.name)
+      console.log(favList)
+    } else {
+      console.log('false')
+      console.log(e.target.name)
+
+      for(const x of favList){
+        console.log('heres x',x)
+        // if(x === e.target.name) console.log('match')
+      }
     }
-    this.setState({shortList: noDupesArray}, () => {
+
+    this.setState({shortList: favList}, () => {
       localStorage.setItem('shortList', JSON.stringify(this.state.shortList))
     })
+
+
+
   }
 
 
@@ -53,30 +69,61 @@ class Home extends Component {
     .map((d, index) => {
       return(
         <div className="movieList" key={d.episode_id}>
-          <button name={d.title} onClick={this._addFav}>fav</button>
+          <button className='favButton' name={d.title} onClick={this._addFav}></button>
           <a href={`/movie/${index + 1}`}>{d.title}</a>
         </div>
       )
     })
     return(
-      <>
-      <h1>Star Wars Search</h1>
-      <form>
-      <label>Movie Seach</label>
-        <input type="text"
-        placeholder='serach for movies here...'
-        value={this.state.filter}
-        onChange={this._changeHandler}
-      />
-      </form>
-      <Shortlist
-      shortList={this.state.shortList}
-      />
-        {movies}
-
-      </>
+      <div className='twinkling'>
+        <div className='container'>
+          <h1>Star Wars Search</h1>
+          <img className='starwars' src={process.env.PUBLIC_URL + '/starwars.jpeg'}  alt='star wars logo'/>
+          <form>
+          <label>Movie Seach</label>
+            <input type="text"
+            placeholder='serach for movies here...'
+            value={this.state.filter}
+            onChange={this._changeHandler}
+          />
+          </form>
+          <Shortlist
+          shortList={this.state.shortList}
+          />
+            {movies}
+        </div>
+      </div>
     )
   }
 }
 
 export default Home
+
+// _addFav(e){
+//   // console.log(e.target.classList.value)
+//   const buttonColor = e.target.classList.toggle('favButtonOff') //true is RED and added to Favourite list
+//   // console.log(buttonColor)
+//
+//
+//   const favList = this.state.shortList.concat(e.target.name)
+//   const noDupes = new Set(favList)
+//   const noDupesArray = []
+//   for(const x of noDupes){
+//     if(buttonColor){
+//       noDupesArray.push(x)
+//     } else if(x === e.target.name){
+//       console.log(x === e.target.name)
+//       noDupesArray.splice(x, 1)
+//       console.log(noDupesArray[x])
+//     }
+//
+//
+//
+//   }
+//   this.setState({shortList: noDupesArray}, () => {
+//     localStorage.setItem('shortList', JSON.stringify(this.state.shortList))
+//   })
+//
+//
+//
+// }

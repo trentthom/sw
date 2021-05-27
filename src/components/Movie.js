@@ -23,6 +23,7 @@ class Movie extends Component{
       title = response.data.title
       const charURLS = response.data.characters
       return Promise.all(charURLS.map((u) => {
+        console.log(u)
         return axios.get(u)
           .then((response) => {
             const swNames = response.data
