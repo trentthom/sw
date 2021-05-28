@@ -26,7 +26,7 @@ MetaTags - To add meta tag to header to stop CORS issues
 You will need to run npm install on this project after pulling the repo and you'l need node for that:
 [Node.js](https://nodejs.org/en/download/)
 
-##Author
+## Author
 
 Trent Thompson
 Junior Engineer
