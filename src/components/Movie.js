@@ -40,11 +40,11 @@ class Movie extends Component{
         <Tippy placement='left' key={k.name} content={
           <ul>
             <li>{ k.name}</li>
-            <li>{k.birth_year}</li>
-            <li>{k.eye_color}</li>
+            <li>D.O.B {k.birth_year}</li>
+            <li>{k.eye_color} eyes</li>
             <li>{k.gender }</li>
-            <li>{k.hair_color}</li>
-            <li>{k.height}</li>
+            <li>{k.hair_color} hair</li>
+            <li>{k.height} cms</li>
           </ul>
         }>
           <div className='namediv'key={k.name}>
