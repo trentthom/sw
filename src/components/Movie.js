@@ -13,7 +13,6 @@ class Movie extends Component{
       newData: '',
       image: '',
     }
-    this._nameFixer = this._nameFixer.bind(this)
   }
 
   componentDidMount(){
@@ -36,19 +35,11 @@ class Movie extends Component{
     }))
   }
 
-  _nameFixer(e){
-    const name = e.target.childNodes[0].wholeText
-    const nameFixedname = name.split(' ').join('').toLowerCase()
-    console.log(nameFixedname)
-    this.setState({image: `/${nameFixedname}.jpeg` })
-  }
-  // <img src={process.env.PUBLIC_URL + '/logo.png'} alt="logo" />
-
   render(){
     console.log(this.state.newData[0])
     const text = this.state.newData ? this.state.newData.map(function (k){
       return (
-        <Tippy placement='right' key={k.name} content={
+        <Tippy placement='left' key={k.name} content={
           <ul>
             <li>{ k.name}</li>
             <li>{k.birth_year}</li>
@@ -65,16 +56,15 @@ class Movie extends Component{
       )
     })
     :
-    <div>{'loading...'}</div>
+    <div className="lds-dual-ring"></div>
 
     return(
       <div>
+      <img className='starwars' src={process.env.PUBLIC_URL + '/starwars.jpeg'}  alt='star wars logo'/>
         <h1>{this.state.title}</h1>
         <div className='charactersContainer'>
           <div className='characterList'>
-          <img className='starwars' src={process.env.PUBLIC_URL + '/starwars.jpeg'}  alt='star wars logo'/>
-            <img className='image' src={this.state.image} alt="coming soon" />
-            <div className='characterDiv' onClick={this._nameFixer}>
+            <div className='characterDiv'>
               {text}
             </div>
             <Characters characterObjects={this.state.newData}/>

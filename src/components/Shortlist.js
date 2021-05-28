@@ -7,7 +7,7 @@ import React from 'react'
       <span className='favTitle'>Favourite Movies:{' '}
       {Object.keys(shortList).map(function(movieName){
         return(
-          <span className='shortListSpan' key={movieName}>{movieName}</span>
+          <span className='shortListSpan' key={movieName}>{movieName},</span>
         )
       })}
       </span>
