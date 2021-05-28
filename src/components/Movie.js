@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import axios from 'axios'
-import Characters from './Characters'
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'
 
@@ -65,7 +64,6 @@ class Movie extends Component{
             <div className='characterDiv'>
               {text}
             </div>
-            <Characters characterObjects={this.state.newData}/>
           </div>
         </div>
       </div>
