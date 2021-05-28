@@ -22,7 +22,6 @@ class Movie extends Component{
       title = response.data.title
       const charURLS = response.data.characters
       return Promise.all(charURLS.map((u) => {
-        console.log(u)
         return axios.get(u)
           .then((response) => {
             const swNames = response.data
@@ -36,7 +35,6 @@ class Movie extends Component{
   }
 
   render(){
-    console.log(this.state.newData[0])
     const text = this.state.newData ? this.state.newData.map(function (k){
       return (
         <Tippy placement='left' key={k.name} content={
@@ -76,8 +74,3 @@ class Movie extends Component{
 }
 
 export default Movie
-// <Characters characterURLS={this.state.characters}/>
-
-// setTimeout(function(){
-//   console.log('aftertimeout',urlData)
-// },4000)
