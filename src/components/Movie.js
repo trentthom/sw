@@ -23,6 +23,7 @@ class Movie extends Component{
       return Promise.all(charURLS.map((u) => {
         return axios.get(u)
           .then((response) => {
+            console.log(response)
             const swNames = response.data
             return swNames
           })
@@ -57,7 +58,6 @@ class Movie extends Component{
 
     return(
       <div>
-      <img className='starwars' src={process.env.PUBLIC_URL + '/starwars.jpeg'}  alt='star wars logo'/>
         <h1>{this.state.title}</h1>
         <div className='charactersContainer'>
           <div className='characterList'>

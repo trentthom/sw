@@ -60,7 +60,6 @@ class Home extends Component {
 
     return(
       <div className='twinkling'>
-      <img className='starwars' src={process.env.PUBLIC_URL + '/starwars.jpeg'}  alt='star wars logo'/>
         <div className='container'>
           <h1>Star Wars Search</h1>
           <form>
