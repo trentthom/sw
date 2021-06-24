@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import axios from 'axios'
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'
+import Navbar from './Navbar'
 
 
 class Movie extends Component{
@@ -58,6 +59,7 @@ class Movie extends Component{
 
     return(
       <div>
+      <Navbar />
         <h1>{this.state.title}</h1>
         <div className='charactersContainer'>
           <div className='characterList'>

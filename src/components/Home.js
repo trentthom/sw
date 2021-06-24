@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import axios from 'axios'
 import Shortlist from './Shortlist'
+import Navbar from './Navbar'
 
 
 const URL = 'https://swapi.dev/api/films/'
@@ -60,6 +61,7 @@ class Home extends Component {
 
     return(
       <div className='twinkling'>
+        <Navbar />
         <div className='container'>
           <h1>Star Wars Search</h1>
           <form>

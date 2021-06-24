@@ -172,3 +172,35 @@ label{
     transform: rotate(360deg);
   }
 }
+
+nav{
+  padding-top: 15px;
+  padding-bottom: 40px;
+  text-align: right;
+}
+
+.navLinks{
+  color: white;
+  padding-right: 20px;
+}
+
+.planetCardDisplay{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+
+
+}
+
+.planetCard{
+  margin: 10px;
+  text-align: center;
+  line-height: 33px;
+  height: 200px;
+  width: 200px;
+  border-radius: 10px;
+  border: 1px solid;
+  // border-color: #888888
+  box-shadow: 5px 5px #888888
+
+
+}

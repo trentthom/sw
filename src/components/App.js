@@ -3,6 +3,8 @@ import Home from './Home'
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom"
 import Movie from './Movie'
 import MetaTags from 'react-meta-tags'
+import Planets from './Planets'
+import People from './People'
 
 class App extends Component {
   render() {
@@ -16,6 +18,8 @@ class App extends Component {
           <Switch>
             <Route path='/' component={Home} exact />
             <Route path='/movie/:movieId' component={Movie} />
+            <Route path='/planets' component={Planets} />
+            <Route path='/people' component={People} />
           </Switch>
         </Router>
       </>
