@@ -21,13 +21,9 @@ class People extends React.Component{
   }
 
   loadMoreCharacters(){
-    console.log('nextCharsURL log from onlinck function',this.state.nextCharsURL)
     this.setState({allowLoadMore: false})
     axios.get(this.state.nextCharsURL).then((response) => {
-      console.log('response from click handler',response.data)
       this.setState({characterData: response.data.results, nextCharsURL: response.data.next, allowLoadMore: true})
-      console.log('setstate log')
-
     })
   }
 

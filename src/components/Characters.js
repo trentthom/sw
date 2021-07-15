@@ -1,7 +1,6 @@
 import React from 'react'
 
 function Characters(props){
-  console.log('props from chacters',props)
   const people = props.data ? props.data.map((item, index) => {
     return(
       <div className='people' key={item.name}>
