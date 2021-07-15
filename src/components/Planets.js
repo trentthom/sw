@@ -14,8 +14,7 @@ class Planets extends Component {
   componentDidMount(){
     let morePlanetsURL;
     axios.get('https://swapi.dev/api/planets').then((response) => {
-      console.log(response)
-      morePlanetsURL = response.data.next
+      // morePlanetsURL = response.data.next
       this.setState({planets: response.data.results})
     })
   }

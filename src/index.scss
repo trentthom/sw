@@ -179,7 +179,7 @@ nav{
   text-align: right;
 }
 
-.navLinks{
+.navLinks a{
   color: white;
   padding-right: 20px;
 }
@@ -203,4 +203,123 @@ nav{
   box-shadow: 5px 5px #888888
 
 
+}
+
+// //////////////////////////////////////
+.starWars{
+  display: flex;
+  justify-content: center;
+  height: 300px;
+  perspective: 300px;
+  color: #feda4a;
+  font-family: 'Pathway Gothic One', sans-serif;
+  font-size: 500%;
+  font-weight: 600;
+  letter-spacing: 6px;
+  line-height: 150%;
+  text-align: justify;
+}
+
+.crawl{
+  position: relative;
+  transform-origin: 50% 100%;
+
+}
+
+
+@keyframes crawl {
+  0% {
+    /* The element starts below the screen */
+    top: 0;
+    /* Rotate the text 20 degrees but keep it close to the viewer */
+    transform: rotateX(20deg) translateZ(0);
+  }
+  100% {
+    /* This is a magic number, but using a big one to make sure the text is fully off the screen at the end */
+    top: -6000px;
+    /* Slightly increasing the rotation at the end and moving the text far away from the viewer */
+    transform: rotateX(25deg) translateZ(-2500px);
+  }
+}
+
+.fade {
+  position: relative;
+  width: 100%;
+  min-height: 50vh;
+  top: 2px;
+  background-image: linear-gradient(0deg, transparent, black 75%);
+  z-index: 1;
+}
+
+.crawlButtonsContainer{
+  margin: 0 auto;
+
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr;
+
+
+}
+
+.crawlButtonsContainer button{
+  height: 40px;
+  border-radius: 15px;
+  font-family: Cuprum, sans-serif;
+  font-size: 20px;
+  box-shadow: 5px 5px #888888;
+  background-color: rgb(52, 140, 235);
+  margin: 10px;
+}
+
+.crawlButtonsContainer button:hover{
+  background-color: blue;
+}
+
+
+.introBlurb{
+  text-align: center;
+  font-size: 38px;
+  color: teal;
+}
+
+///////////////people///////////
+
+.people{
+
+  border-radius: 25px;
+  position: relative;
+  padding: 25px 15px;
+  background-color: rgb(77, 121, 255);
+  margin: 50px 0;
+  height: 200px;
+  box-shadow: 0 2px 5px #ccc;
+  text-align: left;
+}
+
+.imgDiv{
+
+}
+
+.circle-img {
+  float: right;
+
+  border-radius: 50%;
+  border: 7px solid #fff;
+  width: 120px;
+  height: 120px;
+}
+
+footer{
+  text-align: center;
+  bottom: 0;
+}
+
+.moreCharactersButton{
+  height: 45px;
+  width: 120px;
+  border-radius: 12px;
+}
+
+.moreCharactersButtonDiv{
+  margin: 0 auto;
+  align-items:center;
 }

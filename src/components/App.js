@@ -5,6 +5,7 @@ import Movie from './Movie'
 import MetaTags from 'react-meta-tags'
 import Planets from './Planets'
 import People from './People'
+import Intro from './Intro'
 
 class App extends Component {
   render() {
@@ -16,7 +17,8 @@ class App extends Component {
         </MetaTags>
         <Router>
           <Switch>
-            <Route path='/' component={Home} exact />
+            <Route path='/' component={Intro} exact />
+            <Route path='/search' component={Home}  />
             <Route path='/movie/:movieId' component={Movie} />
             <Route path='/planets' component={Planets} />
             <Route path='/people' component={People} />
