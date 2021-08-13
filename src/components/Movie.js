@@ -1,22 +1,19 @@
-import React, {Component} from 'react'
+import React, {useEffect, useState} from 'react'
 import axios from 'axios'
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'
-import Navbar from './Navbar'
 
+const Movie = (props) => {
 
-class Movie extends Component{
-  constructor(props){
-    super()
-    this.state = {
-      title: '',
-      newData: '',
-      image: '',
-    }
-  }
+const [title, setTitle] = useState('')
+const [newData, setNewData] = useState('')
 
-  componentDidMount(){
-    const movieId = this.props.match.params.movieId
+useEffect(() => {
+  apiCall(props)
+},[props])
+
+function apiCall(props){
+  const movieId = props.match.params.movieId
     let title = '';
     axios.get(`https://swapi.dev/api/films/${movieId}/`).then((response) => {
       title = response.data.title
@@ -30,47 +27,43 @@ class Movie extends Component{
           })
       }))
     })
-    .then(items => this.setState({
-      newData: items, title
-    }))
-  }
-
-  render(){
-    const text = this.state.newData ? this.state.newData.map(function (k){
-      return (
-        <Tippy placement='left' key={k.name} content={
-          <ul>
-            <li>{ k.name}</li>
-            <li>D.O.B {k.birth_year}</li>
-            <li>{k.eye_color} eyes</li>
-            <li>{k.gender }</li>
-            <li>{k.hair_color} hair</li>
-            <li>{k.height} cms</li>
-          </ul>
-        }>
-          <div className='namediv'key={k.name}>
-            {k.name}
-           </div>
-       </Tippy>
-      )
+    .then(items => {
+      setNewData(items)
+      setTitle(title)
     })
-    :
-    <div className="lds-dual-ring"></div>
+}
 
-    return(
-      <div>
-      <Navbar />
-        <h1>{this.state.title}</h1>
+  return(
+    <div>
+        <h1>{title}</h1>
         <div className='charactersContainer'>
           <div className='characterList'>
             <div className='characterDiv'>
-              {text}
+              {newData ? newData.map(function (k){
+                return (
+                  <Tippy placement='left' key={k.name} content={
+                    <ul>
+                      <li>{ k.name}</li>
+                      <li>D.O.B {k.birth_year}</li>
+                      <li>{k.eye_color} eyes</li>
+                      <li>{k.gender }</li>
+                      <li>{k.hair_color} hair</li>
+                      <li>{k.height} cms</li>
+                    </ul>
+                  }>
+                    <div className='namediv'key={k.name}>
+                      {k.name}
+                    </div>
+                </Tippy>
+                )
+              })
+              :
+              <div className="lds-dual-ring"></div>}
             </div>
           </div>
         </div>
       </div>
-    )
-  }
+  )
 }
 
 export default Movie

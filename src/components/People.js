@@ -1,47 +1,52 @@
-import React from 'react'
-import Navbar from './Navbar'
+import React, {useEffect, useState} from 'react'
 import Characters from './Characters'
-import axios from 'axios'
 import CopyRight from './CopyRight'
 
+const People = () => {
 
-class People extends React.Component{
-  constructor(props){
-    super(props)
-    this.state = {
-      characterData: [],
-      nextCharsURL: 'https://swapi.dev/api/people/',
-      allowLoadMore: true
-    }
-    this.loadMoreCharacters = this.loadMoreCharacters.bind(this)
+  const [characterData, setCharacterData] = useState([])
+  const [nextCharsURL, setNextCharsURL] = useState('https://swapi.dev/api/people/')
+  const [allowLoadMore, setAllowLoadMore] = useState(true)
+
+
+  useEffect(() => {
+    loadMoreCharacters()
+  },[])
+
+  async function loadMoreCharacters() {
+    setAllowLoadMore(false)
+    const response = await (await fetch(nextCharsURL)).json()
+    setCharacterData(response.results)
+    setNextCharsURL(response.next)
+    setAllowLoadMore(true)
   }
 
-  componentDidMount(){
-    this.loadMoreCharacters()
-  }
-
-  loadMoreCharacters(){
-    this.setState({allowLoadMore: false})
-    axios.get(this.state.nextCharsURL).then((response) => {
-      this.setState({characterData: response.data.results, nextCharsURL: response.data.next, allowLoadMore: true})
-    })
-  }
-
-
-  render(){
-    console.log(' from render state',this.state)
-    return(
-      <div>
-        <Navbar />
+  return(
+    <div>
         <h1>People of Star Wars</h1>
-        <Characters data={this.state.characterData}/>
+        <Characters data={characterData}/>
         <div className='moreCharactersButtonDiv'>
-          <button disabled={!this.state.allowLoadMore} className='moreCharactersButton' onClick={this.loadMoreCharacters}>More Characters</button>
+          <button 
+            disabled={!allowLoadMore} 
+            className='moreCharactersButton' 
+            onClick={loadMoreCharacters}
+            >More Characters
+          </button>
         </div>
       <CopyRight />
       </div>
-    )
-  }
+  )
 }
 
 export default People
+
+
+
+
+
+
+
+
+
+
+

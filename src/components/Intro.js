@@ -1,57 +1,48 @@
-import React, {Component} from 'react'
-import Navbar from './Navbar'
-import axios from 'axios'
+import React, {useEffect, useState} from 'react'
 
 
 const URL = 'https://swapi.dev/api/films/'
 
+const Intro = () => {
 
-class Intro extends Component {
-  constructor(){
-    super()
-    this.state = {
-      movieData: null,
-      crawl: '',
-      style:''
-    }
-    this._getCrawl = this._getCrawl.bind(this)
+  const[movieData, setMovieData] = useState(null)
+  const[crawl, setCrawl] = useState('')
+  const[style, setStyle] = useState('')
+  
+  useEffect( () => {
+    fetchMovieData()
+  })
+
+  const fetchMovieData = async () => {
+    const response = await (await fetch(URL)).json()
+    setMovieData(response.results)
   }
 
-
-  componentDidMount(){
-    axios.get(URL).then((response) => {
-      this.setState({movieData : response.data.results})
-    })
+  function setMyCrawl(e) { 
+    const crawlIndex = e.target.name
+    setCrawl(movieData[crawlIndex].opening_crawl)
+    setStyle('crawl 60s linear')
   }
 
-  _getCrawl(e){
-    const movieId = e.target.name
-    const movieCrawl = this.state.movieData[movieId].opening_crawl
-    this.setState({crawl: movieCrawl, style: 'crawl 60s linear' })
-  }
-
-
-  render(){
-    console.log('style',this.state.style)
-    const movieTitles = this.state.movieData ? this.state.movieData.map((title, index) => {
-      return(
-        <button key={title.episode_id} onClick={this._getCrawl} name={index}> {title.title} </button>
-      )
-    })
-    :
-    <div className="lds-dual-ring"></div>
-
-
-
-    const crawl = `${this.state.crawl} `
-
-    return(
-      <div>
-        <Navbar />
+  return(
+    <div>
         <h1>Movie Crawl</h1>
         <p>Click a button to see the crawl</p>
         <div className='crawlButtonsContainer'>
-          {movieTitles}
+          {movieData ? movieData.map( (movie, index) => {
+            return(
+              <button 
+                key={movie.title}
+                onClick={setMyCrawl}
+                name={index}
+                >
+                {movie.title}
+              </button>
+            )
+          })
+          :
+          <div className="lds-dual-ring"></div> }
+
         </div>
         <div style={{height: '3rem'}}></div>
         <div>
@@ -59,13 +50,14 @@ class Intro extends Component {
         </div>
         <div className="fade"></div>
         <section className='starWars'>
-          <div className='crawl' style={{animation :this.state.style}}>
+          <div className='crawl' style={{animation : style}}>
             {crawl}
           </div>
         </section>
       </div>
-    )
-  }
+  )
 }
 
 export default Intro
+
+

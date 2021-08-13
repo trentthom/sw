@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import axios from 'axios'
 import PlanetCard from './PlanetCard'
-import Navbar from './Navbar'
 
 class Planets extends Component {
   constructor(props){
@@ -22,7 +21,6 @@ class Planets extends Component {
   render(){
     return(
       <div>
-        <Navbar />
         <PlanetCard planetData={this.state.planets} />
       </div>
     )

@@ -1,85 +1,112 @@
-import React, {Component} from 'react'
-import axios from 'axios'
+import React, {useEffect, useState} from 'react'
 import Shortlist from './Shortlist'
-import Navbar from './Navbar'
-
 
 const URL = 'https://swapi.dev/api/films/'
 
-class Home extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      movies: [],
-      filter: '',
-      shortList: {},
-    }
-    this._changeHandler = this._changeHandler.bind(this)
-    this._addFav = this._addFav.bind(this)
-  }
+const Home = () => {
+  
+  const[movies, setMovies] = useState([])
+  const[filter, setFilter] = useState('')
+  const[shortList, setShortList] = useState({})
 
-  componentDidMount(){
-    axios.get(URL).then((response) => {
-      this.setState({movies: response.data.results});
-    })
+  useEffect(() => {
+    fetchMovieData()
+  }, []) //add dependencies
+
+  const fetchMovieData = async () => {
+    const response = await (await fetch(URL)).json()
+    const movieResults = response.results
+    setMovies(movieResults)
+
     const shortList = localStorage.getItem('shortList')
-    if(shortList){
-      this.setState({shortList: JSON.parse(shortList)})
-    }
+      if(shortList){
+        setShortList(JSON.parse(shortList))
+      }
   }
 
-  _changeHandler(e){
-    this.setState({filter: e.target.value})
-  }
+  // componentDidMount(){
+  //   axios.get(URL).then((response) => {
+  //     this.setState({movies: response.data.results});
+  //   })
+  //   const shortList = localStorage.getItem('shortList')
+  //   if(shortList){
+  //     this.setState({shortList: JSON.parse(shortList)})
+  //   }
+  // }
 
 
-  _addFav(e){
+  useEffect(() => {
+    console.log('working')
+    localStorage.setItem('shortList', JSON.stringify(shortList))//CANT GET LOCAL STORAGE GOING???
+  }, [shortList])
+
+
+  const addToFavouritesList = (e) => {//no reson to delete first
     const filmName = e.target.name;
-    if (this.state.shortList[filmName]) {
-      delete this.state.shortList[filmName];
+    if(!shortList[filmName]){
+      setShortList({
+        ...shortList,
+        [filmName]: true
+      })
     } else {
-      this.state.shortList[filmName] = true;
+      delete shortList[filmName]
+      setShortList({...shortList})
     }
-    this.setState({shortList: this.state.shortList }, () => {
-      localStorage.setItem('shortList', JSON.stringify(this.state.shortList))
-    })
   }
 
-  render(){
-    const movies = this.state.movies
-    .filter(movie => {
-      return movie.title.toLowerCase().indexOf(this.state.filter.toLowerCase()) >= 0
-    })
-    .map((d, index) => {
-      return(
-        <div className="movieList" key={d.episode_id}>
-          <button className={this.state.shortList[d.title] ? 'favButton' : 'favButtonOff'} name={d.title} onClick={this._addFav}></button>
-          <a className='movieLinks' href={`/movie/${index + 1}`}>{d.title}</a>
-        </div>
-      )
-    })
+  // _addFav(e){
+  //   const filmName = e.target.name;
+  //   if (this.state.shortList[filmName]) {
+  //     delete this.state.shortList[filmName];
+  //   } else {
+  //     this.state.shortList[filmName] = true;
+  //   }
+  //   this.setState({shortList: this.state.shortList }, () => {
+  //     localStorage.setItem('shortList', JSON.stringify(this.state.shortList))
+  //   })
+  // }
 
-    return(
-      <div className='twinkling'>
-        <Navbar />
-        <div className='container'>
-          <h1>Star Wars Search</h1>
-          <form>
+
+  return(
+    <div className='twinkling'>
+      <div className='container'>
+        <h1>Star Wars Search</h1>
+        <form>
           <label>Movie Search</label>
             <input type="text"
             placeholder='Search for movies here...'
-            value={this.state.filter}
-            onChange={this._changeHandler}
+            value={filter}
+            onChange={(e) => setFilter(e.target.value)}
           />
-          </form>
-          <Shortlist
-          shortList={this.state.shortList}
-          />
-            {movies}
-        </div>
+        </form>
+        <Shortlist
+          shortList={shortList}
+        />
+          {movies.filter(movie => {
+              return movie.title.toLowerCase().indexOf(filter.toLowerCase()) >= 0
+            })
+            .map((movie, index) => {
+              return (
+                <div className="movieList" key={movie.episode_id}>
+                  <button className={shortList[movie.title] ? 'favButton' : 'favButtonOff'} name={movie.title} onClick={addToFavouritesList}></button>
+                  <a className='movieLinks' href={`/movie/${index + 1}`}>{movie.title}</a>
+                </div>
+              )
+            })
+          }
       </div>
-    )
-  }
+    </div>
+  )
 }
 
 export default Home
+
+// function addToFavouritesList(e){
+//   const filmName = e.target.name;
+
+//   if (shortList[filmName]) {
+//     delete shortList[filmName];
+//   } else {
+//     shortList[filmName] = true;
+//   }
+// }
