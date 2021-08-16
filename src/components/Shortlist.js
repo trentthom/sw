@@ -1,10 +1,9 @@
 
- const sList = ({shortList}) => {
-
+ const sList = (props) => {
   return(
     <div className='favoutiteArea'>
       <span className='favTitle'>Favourite Movies:{' '}
-      {Object.keys(shortList).map(function(movieName){
+      {props.shortList.map(function(movieName){
         return(
           <span className='shortListSpan' key={movieName}>{movieName},</span>
         )

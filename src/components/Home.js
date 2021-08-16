@@ -7,11 +7,11 @@ const Home = () => {
   
   const[movies, setMovies] = useState([])
   const[filter, setFilter] = useState('')
-  const[shortList, setShortList] = useState({})
+  const[shortList, setShortList] = useState([])
 
   useEffect(() => {
     fetchMovieData()
-  }, []) //add dependencies
+  }, [])
 
   const fetchMovieData = async () => {
     const response = await (await fetch(URL)).json()
@@ -24,48 +24,17 @@ const Home = () => {
       }
   }
 
-  // componentDidMount(){
-  //   axios.get(URL).then((response) => {
-  //     this.setState({movies: response.data.results});
-  //   })
-  //   const shortList = localStorage.getItem('shortList')
-  //   if(shortList){
-  //     this.setState({shortList: JSON.parse(shortList)})
-  //   }
-  // }
-
-
   useEffect(() => {
-    console.log('working')
-    localStorage.setItem('shortList', JSON.stringify(shortList))//CANT GET LOCAL STORAGE GOING???
+    localStorage.setItem('shortList', JSON.stringify(shortList))
   }, [shortList])
 
-
-  const addToFavouritesList = (e) => {//no reson to delete first
+  const addToFavouritesList = (e) => {
     const filmName = e.target.name;
-    if(!shortList[filmName]){
-      setShortList({
-        ...shortList,
-        [filmName]: true
-      })
-    } else {
-      delete shortList[filmName]
-      setShortList({...shortList})
-    }
+
+      shortList.indexOf(filmName) >= 0 ? setShortList(shortList.filter(movie => movie !== filmName))
+      :
+      setShortList([...shortList, filmName])
   }
-
-  // _addFav(e){
-  //   const filmName = e.target.name;
-  //   if (this.state.shortList[filmName]) {
-  //     delete this.state.shortList[filmName];
-  //   } else {
-  //     this.state.shortList[filmName] = true;
-  //   }
-  //   this.setState({shortList: this.state.shortList }, () => {
-  //     localStorage.setItem('shortList', JSON.stringify(this.state.shortList))
-  //   })
-  // }
-
 
   return(
     <div className='twinkling'>
@@ -88,7 +57,7 @@ const Home = () => {
             .map((movie, index) => {
               return (
                 <div className="movieList" key={movie.episode_id}>
-                  <button className={shortList[movie.title] ? 'favButton' : 'favButtonOff'} name={movie.title} onClick={addToFavouritesList}></button>
+                  <button className={shortList.includes(movie.title) ? 'favButton' : 'favButtonOff'} name={movie.title} onClick={addToFavouritesList}></button>
                   <a className='movieLinks' href={`/movie/${index + 1}`}>{movie.title}</a>
                 </div>
               )
@@ -101,12 +70,4 @@ const Home = () => {
 
 export default Home
 
-// function addToFavouritesList(e){
-//   const filmName = e.target.name;
 
-//   if (shortList[filmName]) {
-//     delete shortList[filmName];
-//   } else {
-//     shortList[filmName] = true;
-//   }
-// }
